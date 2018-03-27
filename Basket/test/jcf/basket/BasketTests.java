@@ -2,18 +2,23 @@ package jcf.basket;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-class BasketTest {
+class BasketTests {
 
 	Basket basket;
 	PriceProvider priceProvider;
+	private DiscountProvider discountProvider;
 
 	@BeforeEach
 	void setup() {
+		discountProvider = new FakeDiscountProvider();
 		priceProvider = new FakePriceProvider();
-		basket = new Basket(priceProvider);
+		basket = new BasketImpl(priceProvider, discountProvider);
 	}
 
 	@Test
@@ -50,11 +55,12 @@ class BasketTest {
 	}
 
 	@Test
-	void totalIAddedHasPriceFromPriceProvider() {
+	void productAddedHasDiscountAppliedToTotal() {
 		int expectedTotal = priceProvider.getPrice("bread");
 		basket.add("bread");
-		int total = basket.total();
-		assertEquals(expectedTotal, total);
+
+		int totalWithDiscounts = basket.total();
+		assertEquals(expectedTotal - FakeDiscountProvider.TOTAL_DISCOUNT, totalWithDiscounts);
 
 	}
 

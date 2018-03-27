@@ -10,14 +10,14 @@ class PriceProviderTests {
 	void priceProviderExists() {
 		PriceProvider priceProvider = new StaticPriceProvider();
 	}
-	
+
 	@Test
 	void butterCosts80Cents() {
 		StaticPriceProvider priceProvider = new StaticPriceProvider();
 		int expectedPrice = 80;
 		int price = priceProvider.getPrice("butter");
 		assertEquals(expectedPrice, price);
-		}
+	}
 
 	@Test
 	void milkCosts115Cents() {
@@ -25,13 +25,14 @@ class PriceProviderTests {
 		int expectedPrice = 115;
 		int price = priceProvider.getPrice("milk");
 		assertEquals(expectedPrice, price);
-		}
-	
+	}
+
 	@Test
-	void breadCosts115Cents() {
+	void breadCosts100Cents() {
 		StaticPriceProvider priceProvider = new StaticPriceProvider();
 		int expectedPrice = 100;
 		int price = priceProvider.getPrice("bread");
 		assertEquals(expectedPrice, price);
-		}
+	}
+
 }
